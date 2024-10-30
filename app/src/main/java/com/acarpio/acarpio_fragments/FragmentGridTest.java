@@ -42,14 +42,20 @@ public class FragmentGridTest extends AppCompatActivity {
                 FrameLayout frameLayout = new FrameLayout(this);
                 frameLayout.setId(View.generateViewId());
                 frameLayout.setLayoutParams(new GridLayout.LayoutParams(GridLayout.spec(i), GridLayout.spec(j)));
-                frameLayout.setPadding(5,5,5,5);
+                frameLayout.setPadding(5, 5, 5, 5);
                 layout.addView(frameLayout);
-                loadFragment(new FirstFragment(), frameLayout.getId());
 
+                // Load fragments based on the condition
+                if (j % 2 == 0) {
+                    loadFragment(new FirstFragment(), frameLayout.getId());
+                } else {
+                    loadFragment(new SecondFragment(), frameLayout.getId());
+                }
             }
-
-
         }
+
+
+
     }
 
     private void loadFragment(Fragment fragment, int id) {
