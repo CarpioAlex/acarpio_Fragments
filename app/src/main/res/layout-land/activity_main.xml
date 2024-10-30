@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:orientation="horizontal"
+    android:layout_height="fill_parent"
+    tools:context=".MainActivity">
+    <fragment
+        android:id="@+id/fragment1"
+        android:layout_width="0px"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:name="com.acarpio.acarpio_fragments.FirstFragment"/>
+    <fragment
+        android:id="@+id/fragment2"
+        android:layout_width="0px"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:name="com.acarpio.acarpio_fragments.SecondFragment"/>
+</LinearLayout>
