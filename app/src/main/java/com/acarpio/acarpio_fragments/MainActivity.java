@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Spinner;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button fragment1Button;
     private Button fragment2Button;
-
+    private FirstFragment firstFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,47 +32,82 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        int orientation = getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            // Only look for buttons in portrait mode
+            fragment1Button = findViewById(R.id.fragment1Button);
+            fragment2Button = findViewById(R.id.fragment2Button);
 
-        fragment1Button = findViewById(R.id.fragment1Button);
-        fragment2Button = findViewById(R.id.fragment2Button);
-
-        // Button1 Listener
-        if (fragment1Button != null) {
-            fragment1Button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    loadFragment(new FirstFragment());
-                }
-            });
-        }
+            // Button1 Listener
+            if (fragment1Button != null) {
+                fragment1Button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        firstFragment = new FirstFragment();
+                        loadFragment(firstFragment, null);
+                    }
+                });
+            }
 
 
-        if (fragment2Button != null) {
             fragment2Button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    loadFragment(new SecondFragment());
+                    if (firstFragment != null && firstFragment.isVisible()) { // Verifica que esté visible
+                        String selectedPlanet = firstFragment.getSelectedItem();
+                        Bundle args = new Bundle();
+                        args.putString("planetKey", selectedPlanet);
+
+                        SecondFragment secondFragment = new SecondFragment();
+                        loadFragment(secondFragment, args); // Pasa el Bundle
+                    } else {
+                        SecondFragment secondFragment = new SecondFragment();
+                        loadFragment(secondFragment, null);
+                    }
                 }
             });
+
+            Button activityTwo = findViewById(R.id.activityTwo);
+            Intent intent = new Intent(this, FragmentGridTest.class);
+            if (activityTwo != null) {
+                activityTwo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(intent);
+                    }
+                });
+            }
+
+        } else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+
+            if (firstFragment != null) {
+                String selectedPlanet = firstFragment.getSelectedItem();
+                Bundle args = new Bundle();
+                args.putString("planetKey", selectedPlanet);
+                loadFragment(new SecondFragment(), args);
+            }
         }
-
-        Button activityTwo = findViewById(R.id.activityTwo);
-        Intent intent = new Intent(this, FragmentGridTest.class);
-        if (activityTwo != null) {
-            activityTwo.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(intent);
-                }
-            });
-        }
-
-
     }
 
 
 
-    private void loadFragment(Fragment fragment) {
+
+
+
+
+
+
+
+
+
+
+
+    private void loadFragment(Fragment fragment, Bundle args) {
+
+        if (args != null) {
+            fragment.setArguments(args);
+        }
+
         FragmentManager fm = getSupportFragmentManager();
 
         FragmentTransaction fragmentTransaction = fm.beginTransaction();

@@ -45,12 +45,9 @@ public class FragmentGridTest extends AppCompatActivity {
                 frameLayout.setPadding(5, 5, 5, 5);
                 layout.addView(frameLayout);
 
-                // Load fragments based on the condition
-                if (j % 2 == 0) {
-                    loadFragment(new FirstFragment(), frameLayout.getId());
-                } else {
-                    loadFragment(new SecondFragment(), frameLayout.getId());
-                }
+
+                loadFragment(new FirstFragment(), frameLayout.getId());
+
             }
         }
 

@@ -50,11 +50,11 @@
     <FrameLayout
         android:id="@+id/fragmentContainer"
         android:layout_width="411dp"
-        android:layout_height="375dp"
+        android:layout_height="519dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        app:layout_constraintVertical_bias="0.506"
-        tools:layout_editor_absoluteX="-1dp">
+        app:layout_constraintVertical_bias="0.092"
+        tools:layout_editor_absoluteX="1dp">
 
     </FrameLayout>
 
