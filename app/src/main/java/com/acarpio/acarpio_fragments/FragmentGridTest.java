@@ -17,8 +17,8 @@ import android.widget.GridLayout;
 
 public class FragmentGridTest extends AppCompatActivity {
     GridLayout layout;
-    int row = 4;
-    int column = 4;
+    int row = 3;
+    int column = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
